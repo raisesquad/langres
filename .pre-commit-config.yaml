@@ -10,6 +10,10 @@ repos:
       - id: check-toml
       - id: check-merge-conflict
       - id: debug-statements
+      # Security - prevents committing secrets
+      - id: detect-private-key
+      # Python validation - catches syntax errors
+      - id: check-ast
 
   # Ruff for linting and formatting (replaces black, flake8, isort, etc.)
   - repo: https://github.com/astral-sh/ruff-pre-commit
