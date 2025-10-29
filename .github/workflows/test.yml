@@ -1,9 +1,13 @@
-name: Workflow for Codecov
+name: Test
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  run:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,14 +22,14 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           python-version: ${{ matrix.python-version }}
-          version: "0.6.14"
           enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
       - name: Install dependencies
-        run: uv sync --all-extras --dev
+        run: uv sync --frozen
 
       - name: Run unit tests and collect coverage
-        run: uv run pytest -m "not integration" --cov=src --cov-report=xml
+        run: uv run pytest -m "not integration"
 
     #   - name: Upload coverage to Codecov
     #     uses: codecov/codecov-action@v4-beta

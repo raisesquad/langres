@@ -25,8 +25,10 @@
 - **Python Version**: Requires Python >=3.12
 - **Code Formatting**: Use `ruff` for code formatting and linting
 - **Type Hints**: Use comprehensive type hints throughout. Use built-in types (`list`, `dict`, `str`, etc.) instead of `typing.List`, `typing.Dict`, etc. (Python 3.12+ feature)
+- **Type Checking**: Use `mypy` in strict mode - all code must pass type checking
 - **Validation**: Pydantic-first approach - all data models should use Pydantic
-- **Package Manager**: This project uses `uv` for dependency management
+- **Package Manager**: Use `uv add` for dependencies (runtime), `uv add --dev` for dev dependencies. Never manually edit `pyproject.toml`. See [uv docs](https://docs.astral.sh/uv/) for details.
+- **Test Coverage**: 100% coverage required (POC requirement). See `[tool.coverage.*]` in pyproject.toml for configuration.
 
 ### Naming Conventions
 
@@ -87,7 +89,8 @@ langres/
 ### Development Tools
 
 - **ruff**: Code formatting and linting
-- **pytest**: Testing framework
+- **pytest**: Testing framework with pytest-cov
+- **mypy**: Static type checking (strict mode)
 
 ## Implementation Guidelines
 
@@ -100,9 +103,11 @@ langres/
 
 ### Testing
 
+- **100% test coverage required** - all code must be tested (POC requirement)
 - Write tests for all new components in `tests/`
 - Use descriptive test names: `test_deduplication_task_with_company_flow`
-- Include both unit tests and integration tests
+- Mark slow tests with `@pytest.mark.slow`, integration tests with `@pytest.mark.integration`
+- Run tests: `uv run pytest` (pre-push hook runs non-slow, non-integration tests automatically)
 
 ### Documentation
 
@@ -151,6 +156,20 @@ class SomeFlow(Module):
 - Prioritize clean, testable code over premature optimization
 - Document design decisions in code comments
 - Focus on the core use cases: Deduplication and Entity Linking (V1 scope)
+
+## Agent Analysis & Expert Feedback
+
+The `.agent/` folder contains external expert analyses of the langres project:
+
+- **`.agent/genalysis/20251029_er_use_cases_expert_analysis.md`**: Comprehensive taxonomy of 18+ entity resolution use cases, mapping each to langres components, identifying gaps (incremental resolution, temporal support, streaming), and comparing langres to state-of-the-art ER systems (Dedupe.io, Splink, Zingg). Essential reading for understanding production requirements and missing features.
+
+- **`.agent/genalysis/20251029_comprehensive_documentation_evaluation.md`**: Expert evaluation (7.5/10) of the project architecture, feasibility analysis, critical problems (blocking scalability, DSPy cost implications, clustering guarantees), and production readiness gaps. Includes practical recommendations for performance benchmarks, cost models, and quality assurance.
+
+**When to consult**:
+- Before planning new features to check if they're already identified as gaps
+- When considering production deployment requirements
+- To understand real-world challenges and best practices in entity resolution
+- When prioritizing development work (these docs identify critical vs. nice-to-have features)
 
 ## Reference Documentation
 
