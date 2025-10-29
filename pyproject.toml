@@ -1,0 +1,14 @@
+[project]
+name = "langres"
+version = "0.1.0"
+description = "A two-layer entity resolution framework with optimization, blocking, and human-in-the-loop capabilities"
+readme = "README.md"
+authors = [
+    { name = "David Graf", email = "grafdavid@me.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
