@@ -85,7 +85,7 @@ review_queue = ReviewQueue(db_path="./reviews.sqlite")
 
 # 3. Instantiate the task
 task = DeduplicationTask(
-    flow=flow, 
+    flow=flow,
     blocker=blocker,
     review_queue=review_queue,
     review_threshold=(0.6, 0.8) # Flag scores in this range for HITL
@@ -283,7 +283,7 @@ from langres.core import Clusterer
 clusterer = Clusterer(method="hierarchical", threshold=0.75)
 
 # Define known non-matches
-constraints = [("id_123", "id_456")] 
+constraints = [("id_123", "id_456")]
 
 clusters = clusterer.cluster(judgements_stream, constraints=constraints)
 ```
