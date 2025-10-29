@@ -1,0 +1,34 @@
+repos:
+  # Standard pre-commit hooks for file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: debug-statements
+
+  # Ruff for linting and formatting (replaces black, flake8, isort, etc.)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.2
+    hooks:
+      # Run the linter with auto-fix
+      - id: ruff-check
+        args: [--fix]
+      # Run the formatter
+      - id: ruff-format
+
+  # Run tests before push (excludes slow and integration tests)
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: uv run --env-file .env pytest
+        language: system
+        args: [-m, "not slow and not integration", --tb=short]
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]
