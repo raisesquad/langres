@@ -109,6 +109,24 @@ langres/
 - Mark slow tests with `@pytest.mark.slow`, integration tests with `@pytest.mark.integration`
 - Run tests: `uv run pytest` (pre-push hook runs non-slow, non-integration tests automatically)
 
+### Development Workflow (Human-Like Iteration)
+
+**Work iteratively like a human developer would:**
+
+1. **Verify as you go**: After writing a function, immediately run it to check it works
+2. **Test-first when appropriate**: If starting with tests (TDD), run them to see failures, then implement
+3. **Validate data contracts**: Print/inspect input and output data to ensure correct structure
+4. **Run type checking**: Use `uv run mypy src/` to catch type errors early
+5. **Check coverage**: Run `uv run pytest --cov` to verify 100% coverage is maintained
+6. **Incremental verification**: Don't write large blocks without testing - validate each step
+7. **Use the REPL/debugger**: When uncertain about behavior, test in isolation first
+8. **Read error messages carefully**: They often contain the exact fix needed
+
+**Example workflow**:
+- Write function → Run it with sample data → Fix errors → Add tests → Run tests → Check types → Check coverage → Commit
+
+This iterative approach catches issues early and ensures code works as expected before moving forward.
+
 ### Documentation
 
 - Update relevant docs in `docs/` when changing architecture
@@ -170,6 +188,8 @@ The `.agent/` folder contains external expert analyses of the langres project:
 - When considering production deployment requirements
 - To understand real-world challenges and best practices in entity resolution
 - When prioritizing development work (these docs identify critical vs. nice-to-have features)
+
+**Note on documentation structure**: Keep `CLAUDE.md` concise and actionable. When adding substantial new guidance (>50 lines), consider creating a focused document in `.agent/` instead and linking to it here. This keeps the main instructions scannable while preserving detailed context.
 
 ## Reference Documentation
 

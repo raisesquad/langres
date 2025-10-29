@@ -34,7 +34,8 @@ repos:
         language: system
         types: [python]
         require_serial: true
-        args: [src/langres]
+        args: [src]
+        pass_filenames: false
 
   # Run tests before push (excludes slow and integration tests)
   - repo: local
