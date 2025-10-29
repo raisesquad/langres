@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "deny": [
+      ".env",
+      ".env.*",
+      "**/.env",
+      "**/.env.*",
+      "**/secrets/**",
+      "**/*_secret*",
+      "**/*credentials*"
+    ],
+    "ask": [
+      "bash:rm",
+      "bash:git push",
+      "bash:pip install",
+      "bash:uv add"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "excludedCommands": [
+      "git",
+      "pytest",
+      "python",
+      "uv",
+      "ruff"
+    ]
+  },
+  "env": {
+    "PYTHONPATH": "${workspaceFolder}/src"
+  }
+}
