@@ -2,6 +2,7 @@
 .agent/
 tmp/
 uv.lock
+wandb/
 
 
 # Claude Code
